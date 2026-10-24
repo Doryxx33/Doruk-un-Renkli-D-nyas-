@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doruk'un Renkli Dünyası | Resmi Web Sitesi</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Global Sıfırlama ve Değişkenler */
+    :root {
+      --bg-dark: #0a0a12;
+      --card-bg: rgba(20, 20, 35, 0.7);
+      --neon-cyan: #00f3ff;
+      --neon-pink: #ff007f;
+      --neon-purple: #b026ff;
+      --text-main: #ffffff;
+      --text-muted: #a0a0c0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Arka Plan Neon Parlamaları */
+    .bg-glow-1 {
+      position: fixed;
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0,243,255,0.15) 0%, rgba(0,0,0,0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .bg-glow-2 {
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,0,127,0.15) 0%, rgba(0,0,0,0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Üst Menü (Navbar) */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 10, 18, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    .logo span {
+      color: var(--neon-cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    .btn-sub-nav {
+      background: linear-gradient(45deg, #ff0000, var(--neon-pink));
+      color: #fff !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600 !important;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-sub-nav:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+    }
+
+    /* Mobil Menü Butonu */
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* Sayfa Bölümleri */
+    section {
+      padding: 6rem 2rem 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--neon-cyan);
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    /* Hero Bölümü */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 8rem;
+    }
+
+    .badge {
+      background: rgba(0, 243, 255, 0.1);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #ff0000, var(--neon-pink));
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-main);
+      border: 2px solid var(--neon-cyan);
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 243, 255, 0.1);
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
+      transform: translateY(-3px);
+    }
+
+    /* Kartlar & Izgara Yapısı */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--neon-cyan);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 243, 255, 0.15);
+    }
+
+    /* Kanal Bilgileri ve Hikaye */
+    .story-content {
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 243, 255, 0.2);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .story-content p {
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+      color: #e0e0f0;
+    }
+
+    /* Galeri Kartları (İkonlu & Neon Çerçeveli) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-card {
+      background: rgba(15, 15, 28, 0.8);
+      border: 2px solid var(--neon-purple);
+      border-radius: 16px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(176, 38, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-card:hover {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+      transform: translateY(-5px);
+    }
+
+    .gallery-icon {
+      font-size: 3.5rem;
+      color: var(--neon-cyan);
+      margin-bottom: 1rem;
+      text-shadow: 0 0 15px var(--neon-cyan);
+    }
+
+    .gallery-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .gallery-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Hedefler Listesi */
+    .goals-list {
+      list-style: none;
+    }
+
+    .goals-list li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .goals-list i {
+      color: var(--neon-cyan);
+      font-size: 1.2rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem 2rem;
+      text-align: center;
+      background: rgba(5, 5, 10, 0.95);
+      margin-top: 4rem;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer .footer-logo {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Responsive Tasarım */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.3rem; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 18, 0.98);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        border-bottom: 1px solid var(--neon-cyan);
+      }
+      .nav-links.active { display: flex; }
+      .menu-toggle { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <!-- Üst Menü -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo"><i class="fa-solid fa-play-circle"></i> Doruk'un <span>Renkli Dünyası</span></a>
+      <div class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <ul class="nav-links" id="nav-list">
+        <li><a href="#about">Doruk Kimdir?</a></li>
+        <li><a href="#story">Kuruluş Hikâyesi</a></li>
+        <li><a href="#highlights">Öne Çıkanlar</a></li>
+        <li><a href="#goals">Hayallerim</a></li>
+        <li>
+          <a href="https://www.youtube.com/@DORUKUNRENKLIDUNYASI" target="_blank" class="btn-sub-nav">
+            <i class="fa-brands fa-youtube"></i> Abone Ol
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero / Ana Tanıtım -->
+  <section class="hero">
+    <div class="badge"><i class="fa-solid fa-users"></i> 2.300+ Abone</div>
+    <h1>Hayallerimin Peşinden Gittiğim <span>YouTube Yolculuğu</span></h1>
+    <p>Merhaba! Ben Doruk Seyrek. Kendi isteğimle çektiğim videolarla kendimi geliştiriyor, eğleniyor ve geleceğime adımlar atıyorum.</p>
+    <div class="hero-buttons">
+      <a href="https://www.youtube.com/@DORUKUNRENKLIDUNYASI" target="_blank" class="btn-primary">
+        <i class="fa-brands fa-youtube"></i> YouTube Kanalına Git
+      </a>
+      <a href="#story" class="btn-secondary">Hikâyemi Oku</a>
+    </div>
+  </section>
+
+  <!-- Doruk Kimdir? -->
+  <section id="about">
+    <h2 class="section-title">Doruk Seyrek Kimdir?</h2>
+    <div class="grid-container">
+      <div class="card">
+        <i class="fa-solid fa-guitar" style="font-size: 2.5rem; color: var(--neon-cyan); margin-bottom: 1rem;"></i>
+        <h3>Gitar & Müzik</h3>
+        <p>10 Şubat 2014 doğumluyum. Günlük hayatımda gitar çalmaya büyük bir merak duyuyorum ve gitarıma çok bağlıyım.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-futbol" style="font-size: 2.5rem; color: var(--neon-pink); margin-bottom: 1rem;"></i>
+        <h3>Futbol Tutkusu</h3>
+        <p>Spor yapmayı, arkadaşlarımla futbol oynamayı ve enerjimi sahada paylaşmayı çok seviyorum.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-video" style="font-size: 2.5rem; color: var(--neon-purple); margin-bottom: 1rem;"></i>
+        <h3>İçerik Üreticisi</h3>
+        <p>YouTube üzerinde kendi isteğimle videolar çekerek hem eğleniyor hem de içerik üretimi konusunda kendimi sürekli geliştiriyorum.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kuruluş Hikâyesi -->
+  <section id="story">
+    <h2 class="section-title">Kanalın Kuruluş Hikâyesi</h2>
+    <div class="story-content">
+      <p><i class="fa-solid fa-quote-left" style="color: var(--neon-cyan); font-size: 1.5rem; margin-right: 0.5rem;"></i> Her şey, babamın bir gün bana <strong>"Haydi, bir kanal kuralım!"</strong> demesiyle başladı.</p>
+      <p>Bu fikir zamanla benim kendi isteğimle videolar çektiğim, yeni şeyler deneyimlediğim ve her geçen gün kendimi geliştirdiğim harika bir yolculuğa dönüştü.</p>
+      <p><strong>25 Mart 2020</strong> tarihinde kurulan <em>Doruk'un Renkli Dünyası</em>, bugün 2300'den fazla abonesiyle büyümeye ve ilham vermeye devam ediyor!</p>
+    </div>
+  </section>
+
+  <!-- Öne Çıkan Konular / Temalar -->
+  <section id="highlights">
+    <h2 class="section-title">Kanalda Neler Var?</h2>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="gallery-icon"><i class="fa-solid fa-guitar"></i></div>
+        <h3>Müzik & Konser</h3>
+        <p>Gitar performanslarım ve müzik yolculuğumdan özel anlar.</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-icon"><i class="fa-solid fa-mask-hero"></i></div>
+        <h3>Eğlence & Karakterler</h3>
+        <p>Sevdiğim kahramanlar, Iron Man ve eğlenceli konseptler.</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-icon"><i class="fa-solid fa-plane"></i></div>
+        <h3>Geziler & Anılar</h3>
+        <p>Amsterdam ve farklı şehirlerdeki seyahat deneyimlerim.</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-icon"><i class="fa-solid fa-award"></i></div>
+        <h3>Başarılar & Belgeler</h3>
+        <p>Katıldığım etkinlikler ve kazandığım başarı sertifikaları.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hayallerim ve Hedeflerim -->
+  <section id="goals">
+    <h2 class="section-title">Hayallerim ve Hedeflerim</h2>
+    <div class="story-content">
+      <ul class="goals-list">
+        <li><i class="fa-solid fa-circle-check"></i> En büyük hayalim yurt dışında yaşamak ve eğitim almak.</li>
+        <li><i class="fa-solid fa-circle-check"></i> Bu hayalimi kendi çalışmam, emeğim ve kendi kazancımla başarmak istiyorum.</li>
+        <li><i class="fa-solid fa-circle-check"></i> YouTube kanalımda daha kaliteli içerikler üreterek kendimi her alanda geliştirmeyi hedefliyorum.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">Doruk'un Renkli Dünyası</div>
+    <p>"Bu, yalnızca bir YouTube kanalı değil; hayallerimin peşinden gittiğim yolculuk."</p>
+    <p style="margin-top: 1rem; font-size: 0.8rem;">&copy; 2026 Doruk Seyrek. Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script>
+    // Mobil Menü Aç/Kapat
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+
+    menuToggle.addEventListener('click', () => {
+      navList.classList.toggle('active');
+    });
+
+    // Menü Linklerine Tıklanınca Mobil Menüyü Kapatma
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navList.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
